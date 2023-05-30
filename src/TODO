@@ -3,47 +3,25 @@
 [ ] generate the index(?) list/links
 [~] generate the blog post html
 [ ] generate the blog post 
-    [ ] vanity urls
-    [ ] title (h1 / title tag)
-    [ ] keywords
-    [ ] publication datetime
-[ ] generate the rss (index.xml)
-[ ] generate the sitemap.xml
+    [ ] vanity urls = path
+    [ ] title (h1 / title tag) - meta.json
+    [ ] keywords - meta.json -> tags
+    [ ] publication date - meta.json(?)
+    [ ] add a is_post to meta.json or just use the publication date?
+        actually anything in /blog/posts is a blog post
+[ ] generate the rss (index.xml) -> automatically from 
+[ ] generate the sitemap.xml -> automatically from all pages
+    [ ] take lastmod datetime from file modification date?
 [ ] 404s
 
+/blog/posts/configure-vscode-debug-clang-breakpoints-apple-silicon
+{
+	"title": "Configure Visual Studio Code on macOS to get breakpoints on Apple Silicon (M1/M2)",
+	"description": "Configure Visual Studio Code on macOS to get breakpoints on Apple Silicon (M1/M2)",
+    "is blog": true,    // ?
+	"keywords": [],     // ? 
+    "pubdate": "2023-12-12"
+}
 
-regarding the vanity urls and tags, we could use the filename... like hugo does
-
-e.g. configure-vscode-debug-clang-breakpoints-apple-silicon
-becomes /posts/configure-vscode-debug-clang-breakpoints-apple-silicon
-
-tags would become configure, vscode, debug, clang, breakpoints, apple, silicon
-
-so then the only thing that remains is the title tag, which has to be extracted from the first H1(?)
-
-try this though
-
-<title>Hello World</title>
-<meta name="description" content="The quick brown fox jumped over the lazy dog.">
-<meta name="author" content="John Smith">
-
-## Heading
-Markdown content begins here
-
-Actually, we can use the publication date as part of the vanity url
-    
-    2023-05-29-configure-vscode-debug-clang-breakpoints-apple-silicon/whatever.md
-
-or even better, since we're going to write index.html anyway, use the filename.md as the publication date
-
-    configure-vscode-debug-clang-breakpoints-apple-silicon/2023-05-29.md
-
-the only problem is sorting. If we want to get them in order, it's better to include a US formatted date in the vanity url. We could do it both ways, maybe.
-
-    2023-05-29_configure-vscode-debug-clang-breakpoints-apple-silicon/.md
-             ^^^ note the separator being different from the typical -
-
-we can extract the date and the vanity url from this, as well as the keywords.
-that leaves us the title ... "Configure Visual Studio Code on macOS to get breakpoints on Apple Silicon (M1/M2)"
-
+[//]: # "programming"
 
