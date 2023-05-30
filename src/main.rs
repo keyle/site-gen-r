@@ -47,13 +47,6 @@ fn main() {
 fn write_html(settings: &Settings, posts: &Vec<Post>) {
     let template = fs::read_to_string(settings.template.clone()).expect("could not load template!");
     for post in posts {
-        // let file_path = post
-        //     .path
-        //     .clone()
-        //     .strip_suffix(".md")
-        //     .unwrap()
-        //     .to_lowercase()
-        //     + ".html";
         let file_path = post.folder.clone().add("/index.html");
         // template mangling with content
         let mut contents = template.clone();
