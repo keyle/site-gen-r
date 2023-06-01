@@ -14,7 +14,9 @@ fn main() {
         .to_string();
 
     let mut posts: Vec<Post> = Vec::new();
+
     WalkDir::new(&settings.workdir)
+        .sort_by_file_name()
         .into_iter()
         .map(walkdir::Result::unwrap)
         .filter(|x| x.file_type().is_file())
@@ -22,7 +24,6 @@ fn main() {
         .filter(|x| x.path().extension().unwrap().to_ascii_lowercase() == "md")
         .for_each(|x| {
             dbg!(&x);
-            // fetch meta.json, fill in metadata struct
             let folder = x
                 .path()
                 .parent()
@@ -30,15 +31,11 @@ fn main() {
                 .to_str()
                 .unwrap()
                 .to_string();
-            let metajson = fs::read_to_string(folder.clone() + "/" + &settings.metadatafilename)
-                .expect("could not load metadata");
-            let metadata: Metadata =
-                serde_json::from_str(&metajson).expect("could not parse metadata json");
+
             posts.push(Post {
                 path: x.path().to_str().unwrap().to_lowercase(),
                 folder,
                 markdown: String::new(),
-                metadata: Some(metadata),
                 html: String::new(),
             });
         });
