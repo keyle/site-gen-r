@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://noben.org/blog/posts/configure-vscode-debug-clang-breakpoints-apple-silicon/</loc>
+    <lastmod>2023-05-24T16:42:12+10:00</lastmod>
+  </url><url>
+    <loc>https://noben.org/blog/</loc>
+    <lastmod>2023-05-24T16:42:12+10:00</lastmod>
+  </url><url>
+    <loc>https://noben.org/blog/posts/</loc>
+    <lastmod>2023-05-24T16:42:12+10:00</lastmod>
+  </url><url>
+    <loc>https://noben.org/blog/posts/bbedit-lsp-intelliphense-settings-braces/</loc>
+    <lastmod>2023-04-10T21:05:49+10:00</lastmod>
+  </url><url>
+    <loc>https://noben.org/blog/posts/configure-vscode-clang-makefile-build-launch-breakpoints/</loc>
+    <lastmod>2022-09-01T22:14:57+10:00</lastmod>
+  </url><url>
+    <loc>https://noben.org/blog/posts/perfect-hard-boiled-eggs-via-steaming/</loc>
+    <lastmod>2022-07-26T09:28:10+10:00</lastmod>
+  </url><url>
+    <loc>https://noben.org/blog/posts/configure-mousewheel-speed-debian-mint-cinammon-etc/</loc>
+    <lastmod>2021-11-11T21:47:27+10:00</lastmod>
+  </url><url>
+    <loc>https://noben.org/blog/posts/install-slack-debian-bullseye/</loc>
+    <lastmod>2021-11-11T21:36:00+10:00</lastmod>
+  </url><url>
+    <loc>https://noben.org/blog/categories/</loc>
+  </url><url>
+    <loc>https://noben.org/blog/tags/</loc>
+  </url>
+</urlset>

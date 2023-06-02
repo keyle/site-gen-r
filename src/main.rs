@@ -37,6 +37,12 @@ fn main() {
                 folder,
                 markdown: String::new(),
                 html: String::new(),
+                is_blog: false,
+                title: String::new(),
+                pub_date: String::new(),
+                description: String::new(),
+                url: String::new(),
+                tags: vec![],
             });
         });
 
@@ -45,4 +51,5 @@ fn main() {
         x.mangle_template(&template, &settings);
         x.save_html();
     });
+    dbg!(posts);
 }

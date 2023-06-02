@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NobenLog</title>
+    <link>https://noben.org/blog/</link>
+    <description>Recent content on NobenLog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 May 2023 16:42:12 +1000</lastBuildDate><atom:link href="https://noben.org/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configure Visual Studio Code on macOS to get breakpoints on Apple Silicon (M1/M2)</title>
+      <link>https://noben.org/blog/posts/configure-vscode-debug-clang-breakpoints-apple-silicon/</link>
+      <pubDate>Wed, 24 May 2023 16:42:12 +1000</pubDate>
+      
+      <guid>https://noben.org/blog/posts/configure-vscode-debug-clang-breakpoints-apple-silicon/</guid>
+      <description>Breakpoints on Apple Silicon As an update to my previous post, when I upgraded to Apple Silicon ARM based laptops and computer (M1/M2), I learnt the hard way that debugging via gdb is no more.
+There is thankfully, now, an alternative. Here are the steps.
+Install CodeLLDB in VSCode The key is to use lldb instead of gdb, which comes with XCode (you might need to install xcode tools first).</description>
+    </item>
+    
+    <item>
+      <title>Change LSP settings in BBEdit for Intelliphense</title>
+      <link>https://noben.org/blog/posts/bbedit-lsp-intelliphense-settings-braces/</link>
+      <pubDate>Mon, 10 Apr 2023 21:05:49 +1000</pubDate>
+      
+      <guid>https://noben.org/blog/posts/bbedit-lsp-intelliphense-settings-braces/</guid>
+      <description>Introduction Recently having moved to BBEdit, one thing that drove me crazy was the formatting using intelliphense (PHP) would automatically use PSR12 (default) where it puts the curly brace on a new line.
+Say what you will about code style and all but I wanted K&amp;amp;R.
+In VSCode this is trivial, edit the config, add a line and done. In BBEdit, not so quick!
+The setup Once you have intelliphense set up properly in BBEdit - see this page and search for &amp;ldquo;php&amp;rdquo;: https://www.</description>
+    </item>
+    
+    <item>
+      <title>Configure Visual Studio Code with clangd, clang for builds, to use gdb for debugging and makefile</title>
+      <link>https://noben.org/blog/posts/configure-vscode-clang-makefile-build-launch-breakpoints/</link>
+      <pubDate>Thu, 01 Sep 2022 22:14:57 +1000</pubDate>
+      
+      <guid>https://noben.org/blog/posts/configure-vscode-clang-makefile-build-launch-breakpoints/</guid>
+      <description>Introduction Running C/C++ on macOS with VSCode, clang and gdb, can be quite interesting (challenging) to set up.
+I&amp;rsquo;m no expert, but this is how I did it and it might help you. I certainly document it for my own benefit as well.
+VSCode + clangd Once VSCode is installed, install clangd as a plugin. This is the language server used in the backend of VSCode which will give you auto completion and &amp;ldquo;click through&amp;rdquo; navigation between header files and code.</description>
+    </item>
+    
+    <item>
+      <title>Perfectly hard-boiled eggs via steaming method on induction cooktops</title>
+      <link>https://noben.org/blog/posts/perfect-hard-boiled-eggs-via-steaming/</link>
+      <pubDate>Tue, 26 Jul 2022 09:28:10 +1000</pubDate>
+      
+      <guid>https://noben.org/blog/posts/perfect-hard-boiled-eggs-via-steaming/</guid>
+      <description>Introduction After struggling with making easy-to-peal and perfectly cooked eggs every time, I found a really good method I&amp;rsquo;d like to document.
+The main issue is the induction cooktops, it&amp;rsquo;s difficult to make eggs via boiling that will be consistent every time.
+I found this steaming technique and it works absolute wonders. I&amp;rsquo;ve made quite a lot of eggs, of various sizes, age, and it&amp;rsquo;s been great consistently on an electric cooktop.</description>
+    </item>
+    
+    <item>
+      <title>Configure Mousewheel Speed on Debian/Linux Mint incl. Cinammon etc.</title>
+      <link>https://noben.org/blog/posts/configure-mousewheel-speed-debian-mint-cinammon-etc/</link>
+      <pubDate>Thu, 11 Nov 2021 21:47:27 +1000</pubDate>
+      
+      <guid>https://noben.org/blog/posts/configure-mousewheel-speed-debian-mint-cinammon-etc/</guid>
+      <description>The following fixes the slow mousewheel on debian/mint using Cinammon / GTK3. install a package called imwheel and use a script that generates a small UI to tweak the setting. personal settings will be saved in ~/.imwheelrc.
+sudo apt install imwheel touch ~/mousewheel.sh # edit and paste the mousewheel.sh chmod +x ~/mousewheel.sh ~/mousewheel.sh # opens a GTK UI, I found the value 4-5 to be about right Contents of mousewheel.sh #!</description>
+    </item>
+    
+    <item>
+      <title>Install Slack on Debian Bullseye</title>
+      <link>https://noben.org/blog/posts/install-slack-debian-bullseye/</link>
+      <pubDate>Thu, 11 Nov 2021 21:36:00 +1000</pubDate>
+      
+      <guid>https://noben.org/blog/posts/install-slack-debian-bullseye/</guid>
+      <description>So you want to install slack&amp;hellip; Go to https://slack.com and get their latest .deb install file for Linux
+if you attempt to install it as, you should get some missing requirements warning and it bails.
+sudo apt install &amp;lt;slack.deb&amp;gt;
+failed: requirements missing
+Sadly some required packages don&amp;rsquo;t seem to be up to date! The simplest way is to install the required packages from the repository manually until all requirements are there.</description>
+    </item>
+    
+  </channel>
+</rss>

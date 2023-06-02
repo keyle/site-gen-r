@@ -6,6 +6,7 @@ use std::fs;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Settings {
     pub workdir: String,
+    pub webroot: String,
     pub template: String,
     pub contenttag: String,
     pub titletag: String,
@@ -19,6 +20,12 @@ pub struct Post {
     pub folder: String,
     pub markdown: String,
     pub html: String,
+    pub is_blog: bool,
+    pub title: String,
+    pub url: String,
+    pub pub_date: String,
+    pub description: String,
+    pub tags: Vec<String>,
 }
 
 impl Post {
@@ -46,6 +53,7 @@ impl Post {
         // TODO to generate the index.xml (rss)
         // TODO put the rss in the template
         // TODO put the blog index on the homepage
+
         // FIXME @hack we purposefully named our index z-index to be last in the alphabet to have processed everything else prior!
         // Ideally this should take another pass, rather than rely on the order.
 
@@ -68,7 +76,9 @@ impl Post {
             contents = contents.replace("<body>", "<body class='blog'>"); // apply different css
             let x_date = Selector::parse("sub")
                 .expect("ERROR Could not extract <sub> (pubdate) from supposed blog post");
-            let _pubdate = html.select(&x_date).next().unwrap().inner_html(); // TODO impl pubdate in RSS and index page
+            let pubdate = html.select(&x_date).next().unwrap().inner_html(); // TODO impl pubdate in RSS and index page
+            self.pub_date = pubdate;
+            self.is_blog = true;
             description = title.clone(); // take the title as description
         } else {
             let x_desc = Selector::parse("x-desc")
@@ -76,7 +86,7 @@ impl Post {
             description = html
                 .select(&x_desc)
                 .next()
-                .expect("could not parse <x-desc> description from html")
+                .expect("ERROR Could not parse <x-desc> description from html")
                 .inner_html();
         }
 
@@ -84,9 +94,25 @@ impl Post {
             .expect("ERROR Could not extract <x-tags> from supposed blog post");
         let tags = html.select(&x_tags).next().unwrap().inner_html();
 
-        contents = contents.replace(&settings.titletag, &title);
+        self.title = title;
+
+        self.tags = tags
+            .split(",")
+            .map(|x| x.to_string().trim().to_string())
+            .collect();
+        self.description = description;
+
+        let vanity = self
+            .folder
+            .split("/")
+            .last()
+            .expect("ERROR Could not extract vanity url from folder");
+
+        self.url = format!("{}/blog/post/{}", &settings.webroot, &vanity);
+
+        contents = contents.replace(&settings.titletag, &self.title);
         contents = contents.replace(&settings.keywordstag, &tags);
-        contents = contents.replace(&settings.descriptiontag, &description);
+        contents = contents.replace(&settings.descriptiontag, &self.description);
         contents = contents.replace(&settings.contenttag, &self.html);
 
         self.html = contents;
