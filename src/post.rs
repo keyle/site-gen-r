@@ -1,18 +1,8 @@
 use pulldown_cmark::{html, Options, Parser};
 use scraper::{Html, Selector};
-use serde::{Deserialize, Serialize};
 use std::fs;
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Settings {
-    pub workdir: String,
-    pub webroot: String,
-    pub template: String,
-    pub contenttag: String,
-    pub titletag: String,
-    pub descriptiontag: String,
-    pub keywordstag: String,
-}
+use crate::settings::Settings;
 
 #[derive(Debug)]
 pub struct Post {

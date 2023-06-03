@@ -1,8 +1,11 @@
 use std::fs;
 use walkdir::WalkDir;
 
-mod data;
-use data::*;
+mod settings;
+use settings::*;
+
+mod post;
+use post::*;
 
 fn main() {
     let settingsjson = fs::read_to_string(".settings.json").expect("unable to read file");
