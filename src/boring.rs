@@ -9,14 +9,13 @@ pub fn gen_sitemap(posts: &Vec<Post>, settings: &Settings) {
   xmlns:xhtml="http://www.w3.org/1999/xhtml">"#,
     );
 
-    posts.iter().for_each(|p| {
+    for p in posts {
         contents = format!(
             "{}<url><loc>{}</loc><lastmod>{}</lastmod></url>\n",
             contents, p.url, p.pub_date
         );
-    });
+    }
     contents = format!("{}</urlset>\n", contents);
-
     // save the sitemap.xml at the web root
     let file_path = format!("{}/sitemap.xml", &settings.workdir);
     fs::write(file_path, &contents).expect("could not write sitemap.xml!");
@@ -40,11 +39,9 @@ pub fn gen_rssfeed(posts: &Vec<Post>, settings: &Settings) {
             "{}<item><title>{}</title><link>{}</link><pubDate>{}</pubDate><guid>{}</guid><description>{}</description></item>\n",
             contents, p.title, p.url, p.pub_date, p.url, p.description
         );
-
-        contents = format!("{}</channel></rss>\n", contents);
-
-        // save the index.xml (RSS) at the web root
-        let file_path = format!("{}/index.xml", &settings.workdir);
-        fs::write(file_path, &contents).expect("could not write rss xml!");
     }
+    contents = format!("{}</channel></rss>\n", contents);
+    // save the index.xml (RSS) at the web root
+    let file_path = format!("{}/index.xml", &settings.workdir);
+    fs::write(file_path, &contents).expect("could not write rss xml!");
 }
