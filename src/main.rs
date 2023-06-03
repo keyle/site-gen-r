@@ -7,6 +7,8 @@ use settings::*;
 mod post;
 use post::*;
 
+mod boring;
+
 fn main() {
     let settingsjson = fs::read_to_string(".settings.json").expect("unable to read file");
     let settings: Settings = serde_json::from_str(&settingsjson).unwrap();
@@ -54,5 +56,10 @@ fn main() {
         x.mangle_template(&template, &settings);
         x.save_html();
     });
-    dbg!(posts);
+
+    boring::gen_sitemap(&posts, &settings);
+
+    boring::gen_rssfeed(&posts, &settings);
+
+    dbg!(&posts);
 }

@@ -1,3 +1,4 @@
+use chrono::Local;
 use pulldown_cmark::{html, Options, Parser};
 use scraper::{Html, Selector};
 use std::fs;
@@ -36,49 +37,34 @@ impl Post {
 
     pub fn mangle_template(&mut self, template: &String, settings: &Settings) {
         let mut contents = template.clone();
-        let is_blog_post = self.html.contains("<sub>");
+        let is_blog_post = self.html.contains("<x-blog-title>");
         let html = Html::parse_document(&self.html);
+        let title_tag_name;
 
-        // TODO to generate the sitemap.xml
-        // TODO to generate the index.xml (rss)
         // TODO put the rss in the template
         // TODO put the blog index on the homepage
 
         // FIXME @hack we purposefully named our index z-index to be last in the alphabet to have processed everything else prior!
         // Ideally this should take another pass, rather than rely on the order.
 
-        let x_title = Selector::parse("x-title")
-            .expect("ERROR Could not extract <x-title> from supposed BLOG post");
-        let title = html
-            .select(&x_title)
-            .next()
-            .unwrap_or_else(|| {
-                panic!(
-                    "could not parse <x-title> from html - it is required. HTML: {}",
-                    &self.html
-                )
-            })
-            .inner_html();
-
-        let description: String;
-
         if is_blog_post {
+            title_tag_name = "x-blog-title";
             contents = contents.replace("<body>", "<body class='blog'>"); // apply different css
             let x_date = Selector::parse("sub")
                 .expect("ERROR Could not extract <sub> (pubdate) from supposed blog post");
             let pubdate = html.select(&x_date).next().unwrap().inner_html(); // TODO impl pubdate in RSS and index page
             self.pub_date = pubdate;
             self.is_blog = true;
-            description = title.clone(); // take the title as description
+
+            // description = title.clone(); // FIXME
         } else {
-            let x_desc = Selector::parse("x-desc")
-                .expect("ERROR Could not extract x-desc from supposed PRODUCT post");
-            description = html
-                .select(&x_desc)
-                .next()
-                .expect("ERROR Could not parse <x-desc> description from html")
-                .inner_html();
+            title_tag_name = "x-title";
+
+            self.pub_date = Local::now().format("%Y-%m-%d").to_string();
         }
+        let x_title = Selector::parse(title_tag_name)
+            .expect("ERROR Could not extract <x-title> from supposed BLOG post");
+        let title = html.select(&x_title).next().unwrap().inner_html();
 
         let x_tags = Selector::parse("x-tags")
             .expect("ERROR Could not extract <x-tags> from supposed blog post");
@@ -90,15 +76,24 @@ impl Post {
             .split(",")
             .map(|x| x.to_string().trim().to_string())
             .collect();
-        self.description = description;
+
+        if self.html.contains("x-desc") {
+            let x_desc = Selector::parse("x-desc")
+                .expect("ERROR Could not extract x-desc from supposed PRODUCT post");
+            self.description = html.select(&x_desc).next().unwrap().inner_html();
+        }
 
         let vanity = self
             .folder
             .split("/")
             .last()
             .expect("ERROR Could not extract vanity url from folder");
-
-        self.url = format!("{}/blog/post/{}", &settings.webroot, &vanity);
+        dbg!(vanity);
+        self.url = if vanity == "public" {
+            settings.webroot.clone() + "/" // main index
+        } else {
+            format!("{}/blog/post/{}", &settings.webroot, &vanity)
+        };
 
         contents = contents.replace(&settings.titletag, &self.title);
         contents = contents.replace(&settings.keywordstag, &tags);
