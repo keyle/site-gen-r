@@ -32,7 +32,7 @@ pub fn gen_rssfeed(posts: &Vec<Post>, settings: &Settings) {
     <title>NobenLog</title>
     <link>https://noben.org/blog/</link>
     <description>Recent content on NobenLog</description>
-    <generator>site-gen-rust -- https://github.com/keyle/site-gen-r</generator>
+    <generator>site-gen-rust -- https://github.com/keyle/site-gen-rust</generator>
     <language>en-us</language>"#,
     );
 
