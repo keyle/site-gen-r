@@ -47,6 +47,7 @@ fn main() {
                 pub_date: String::new(),
                 description: String::new(),
                 url: String::new(),
+                vanity: String::new(),
                 tags: vec![],
             });
         });
@@ -60,6 +61,8 @@ fn main() {
     boring::gen_sitemap(&posts, &settings);
 
     boring::gen_rssfeed(&posts, &settings);
+
+    boring::gen_blog_index(&posts, &settings);
 
     dbg!(&posts);
 }

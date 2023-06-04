@@ -1,5 +1,7 @@
 use std::fs;
 
+use chrono::NaiveDate;
+
 use crate::{post::Post, settings::Settings};
 
 pub fn gen_sitemap(posts: &Vec<Post>, settings: &Settings) {
@@ -44,4 +46,34 @@ pub fn gen_rssfeed(posts: &Vec<Post>, settings: &Settings) {
     // save the index.xml (RSS) at the web root
     let file_path = format!("{}/index.xml", &settings.workdir);
     fs::write(file_path, &contents).expect("could not write rss xml!");
+}
+
+pub fn gen_blog_index(posts: &Vec<Post>, settings: &Settings) {
+    //
+    let file_path = format!("{}/index.html", &settings.workdir);
+    let index_html = fs::read_to_string(&file_path)
+        .expect("could not load index html!")
+        .to_string();
+
+    let mut contents = String::from("<table>");
+
+    posts.into_iter().filter(|p| p.is_blog).for_each(|p| {
+        contents = format!(
+            "{}<tr><td>{}</td><td>{}</td><td>&nbsp;</td>",
+            contents,
+            blog_date_from(&p.pub_date),
+            format!("<a href='{}'>{}</a>", p.vanity, p.title)
+        );
+    });
+
+    contents = format!("{}</table>", contents);
+
+    let new_index = index_html.replace("<x-blog-index/>", &contents);
+    fs::write(&file_path, &new_index).expect("could not write rss xml!");
+}
+
+fn blog_date_from(ymd: &String) -> String {
+    let t = NaiveDate::parse_from_str(ymd, "%Y-%m-%d")
+        .expect("ERROR Could not parse date for blog index");
+    t.format("%b %d, %Y").to_string() // May 14, 2023
 }

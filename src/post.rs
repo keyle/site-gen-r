@@ -14,6 +14,7 @@ pub struct Post {
     pub is_blog: bool,
     pub title: String,
     pub url: String,
+    pub vanity: String,
     pub pub_date: String,
     pub description: String,
     pub tags: Vec<String>,
@@ -41,10 +42,9 @@ impl Post {
         let html = Html::parse_document(&self.html);
         let title_tag_name;
 
-        // TODO put the rss in the template
-        // TODO put the blog index on the homepage
-
-        // FIXME @hack we purposefully named our index z-index to be last in the alphabet to have processed everything else prior!
+        // TODO there is some work to be done on the rss, it cannot be found at the root by netnewswire
+        // TODO also there is no description and we also include products in it which might be wrong(?)
+        // @hack we purposefully named our index z-index to be last in the alphabet to have processed everything else prior!
         // Ideally this should take another pass, rather than rely on the order.
 
         if is_blog_post {
@@ -89,10 +89,13 @@ impl Post {
             .last()
             .expect("ERROR Could not extract vanity url from folder");
         dbg!(vanity);
+        // NOTE this may change in the future
         self.url = if vanity == "public" {
+            self.vanity = String::from("/");
             settings.webroot.clone() + "/" // main index
         } else {
-            format!("{}/blog/post/{}", &settings.webroot, &vanity)
+            self.vanity = String::from(format!("/blog2/posts/{}", &vanity));
+            format!("{}/blog2/posts/{}", &settings.webroot, &vanity)
         };
 
         contents = contents.replace(&settings.titletag, &self.title);
