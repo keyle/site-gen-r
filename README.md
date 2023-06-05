@@ -40,6 +40,8 @@ NOTE: the content will be placed in situe. So if the website places a markdown i
   
 The blogging system works pretty much the same, except I use `<x-blog-title>` instead of `<x-title>` to tell the generator that this is a blog post. 
 
+Blog posts will automatically have a `blog` class on the `<body>` to style the blog differently, as needed.
+
 Additionally we parse `sub` for the RSS `pubDate` and to be sorted on the index page.
 
 It will be included in the RSS and linked from the homepage. Note that this last part is pretty much custom to suit my own needs, but could be abstracted out further.
