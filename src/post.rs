@@ -81,7 +81,6 @@ impl Post {
             .split("/")
             .last()
             .expect("ERROR Could not extract vanity url from folder");
-        dbg!(vanity);
         // NOTE this may change in the future
         self.url = if vanity == "public" {
             self.vanity = String::from("/");

@@ -12,7 +12,6 @@ mod boring;
 fn main() {
     let settingsjson = fs::read_to_string(".settings.json").expect("unable to read file");
     let settings: Settings = serde_json::from_str(&settingsjson).unwrap();
-    dbg!(&settings);
 
     let template = fs::read_to_string(settings.template.clone())
         .expect("could not load template!")
@@ -28,7 +27,6 @@ fn main() {
         .filter(|x| !x.file_name().to_str().unwrap().starts_with("."))
         .filter(|x| x.path().extension().unwrap().to_ascii_lowercase() == "md")
         .for_each(|x| {
-            dbg!(&x);
             let folder = x
                 .path()
                 .parent()
@@ -36,7 +34,7 @@ fn main() {
                 .to_str()
                 .unwrap()
                 .to_string();
-
+            println!("Found .md at {}", &folder);
             posts.push(Post {
                 path: x.path().to_str().unwrap().to_lowercase(),
                 folder,
@@ -57,7 +55,7 @@ fn main() {
         x.mangle_template(&template, &settings);
         x.save_html();
     });
-    
+
     // @later  check that the screenshot show up when served online with url ending / and not
     boring::gen_sitemap(&posts, &settings);
 
@@ -65,5 +63,5 @@ fn main() {
 
     boring::gen_blog_index(&posts, &settings);
 
-    dbg!(&posts);
+    println!("Site generated.");
 }
