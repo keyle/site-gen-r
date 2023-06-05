@@ -57,7 +57,8 @@ fn main() {
         x.mangle_template(&template, &settings);
         x.save_html();
     });
-
+    
+    // @later  check that the screenshot show up when served online with url ending / and not
     boring::gen_sitemap(&posts, &settings);
 
     boring::gen_rssfeed(&posts, &settings);

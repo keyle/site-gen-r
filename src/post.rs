@@ -42,10 +42,6 @@ impl Post {
         let html = Html::parse_document(&self.html);
         let title_tag_name;
 
-        // @later  check that the screenshot show up when served online with url ending / and not
-        // @hack we purposefully named our index z-index to be last in the alphabet to have processed everything else prior!
-        // Ideally this should take another pass, rather than rely on the order.
-
         if is_blog_post {
             title_tag_name = "x-blog-title";
             contents = contents.replace("<body>", "<body class='blog'>"); // apply different css

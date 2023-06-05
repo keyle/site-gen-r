@@ -25,6 +25,8 @@ pub fn gen_sitemap(posts: &Vec<Post>, settings: &Settings) {
 }
 
 pub fn gen_rssfeed(posts: &Vec<Post>, settings: &Settings) {
+    // @hack we purposefully named our index z-index to be last in the alphabet to have processed ever Post prior!
+    // Ideally this should take another pass, rather than rely on the order.
     let mut contents = String::from(
         r#"<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
