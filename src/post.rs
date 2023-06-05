@@ -87,8 +87,8 @@ impl Post {
             self.vanity = String::from("/");
             settings.webroot.clone() + "/" // main index
         } else {
-            self.vanity = String::from(format!("/blog2/posts/{}", &vanity));
-            format!("{}/blog2/posts/{}", &settings.webroot, &vanity)
+            self.vanity = String::from(format!("/blog/posts/{}", &vanity));
+            format!("{}/blog/posts/{}", &settings.webroot, &vanity)
         };
 
         contents = contents.replace(&settings.titletag, &self.title);
