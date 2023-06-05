@@ -66,7 +66,7 @@ impl Post {
         self.title = title;
 
         self.tags = tags
-            .split(",")
+            .split(',')
             .map(|x| x.to_string().trim().to_string())
             .collect();
 
@@ -78,7 +78,7 @@ impl Post {
 
         let vanity = self
             .folder
-            .split("/")
+            .split('/')
             .last()
             .expect("ERROR Could not extract vanity url from folder");
         // NOTE this may change in the future
@@ -86,7 +86,7 @@ impl Post {
             self.vanity = String::from("/");
             settings.webroot.clone() + "/" // main index
         } else {
-            self.vanity = String::from(format!("/blog/posts/{}", &vanity));
+            self.vanity = format!("/blog/posts/{}", &vanity);
             format!("{}/blog/posts/{}", &settings.webroot, &vanity)
         };
 

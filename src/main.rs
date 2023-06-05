@@ -15,7 +15,7 @@ fn main() {
 
     let template = fs::read_to_string(settings.template.clone())
         .expect("could not load template!")
-        .to_string();
+        ;
 
     let mut posts: Vec<Post> = Vec::new();
 
@@ -24,7 +24,7 @@ fn main() {
         .into_iter()
         .map(walkdir::Result::unwrap)
         .filter(|x| x.file_type().is_file())
-        .filter(|x| !x.file_name().to_str().unwrap().starts_with("."))
+        .filter(|x| !x.file_name().to_str().unwrap().starts_with('.'))
         .filter(|x| x.path().extension().unwrap().to_ascii_lowercase() == "md")
         .for_each(|x| {
             let folder = x

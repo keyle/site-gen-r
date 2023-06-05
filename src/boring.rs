@@ -57,7 +57,7 @@ pub fn gen_blog_index(posts: &Vec<Post>, settings: &Settings) {
     let file_path = format!("{}/index.html", &settings.workdir);
     let index_html = fs::read_to_string(&file_path)
         .expect("could not load index html!")
-        .to_string();
+        ;
 
     let mut contents = String::from("<table>");
 
@@ -76,7 +76,7 @@ pub fn gen_blog_index(posts: &Vec<Post>, settings: &Settings) {
     contents = format!("{}</table>", contents);
 
     let new_index = index_html.replace("<x-blog-index/>", &contents);
-    fs::write(&file_path, &new_index).expect("could not write rss xml!");
+    fs::write(&file_path, new_index).expect("could not write rss xml!");
 }
 
 fn blog_date_from(ymd: &String) -> String {
