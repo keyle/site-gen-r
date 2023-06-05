@@ -57,7 +57,10 @@ pub fn gen_blog_index(posts: &Vec<Post>, settings: &Settings) {
 
     let mut contents = String::from("<table>");
 
-    posts.into_iter().filter(|p| p.is_blog).for_each(|p| {
+    let mut sorted = posts.to_vec(); // clone to mutable list of posts for ordering
+    sorted.sort_by(|a, b| b.pub_date.clone().cmp(&a.pub_date));
+
+    sorted.into_iter().filter(|p| p.is_blog).for_each(|p| {
         contents = format!(
             "{}<tr><td>{}</td><td>{}</td><td>&nbsp;</td>",
             contents,

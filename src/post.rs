@@ -5,7 +5,7 @@ use std::fs;
 
 use crate::settings::Settings;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Post {
     pub path: String,
     pub folder: String,
