@@ -42,8 +42,7 @@ impl Post {
         let html = Html::parse_document(&self.html);
         let title_tag_name;
 
-        // TODO there is some work to be done on the rss, it cannot be found at the root by netnewswire
-        // TODO also there is no description and we also include products in it which might be wrong(?)
+        // @later  check that the screenshot show up when served online with url ending / and not
         // @hack we purposefully named our index z-index to be last in the alphabet to have processed everything else prior!
         // Ideally this should take another pass, rather than rely on the order.
 
@@ -55,8 +54,6 @@ impl Post {
             let pubdate = html.select(&x_date).next().unwrap().inner_html(); // TODO impl pubdate in RSS and index page
             self.pub_date = pubdate;
             self.is_blog = true;
-
-            // description = title.clone(); // FIXME
         } else {
             title_tag_name = "x-title";
 

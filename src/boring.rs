@@ -11,6 +11,7 @@ pub fn gen_sitemap(posts: &Vec<Post>, settings: &Settings) {
   xmlns:xhtml="http://www.w3.org/1999/xhtml">"#,
     );
 
+    // note: the order doesn't matter in sitemap.xml
     for p in posts {
         contents = format!(
             "{}<url><loc>{}</loc><lastmod>{}</lastmod></url>\n",
@@ -24,7 +25,6 @@ pub fn gen_sitemap(posts: &Vec<Post>, settings: &Settings) {
 }
 
 pub fn gen_rssfeed(posts: &Vec<Post>, settings: &Settings) {
-    //
     let mut contents = String::from(
         r#"<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -36,12 +36,15 @@ pub fn gen_rssfeed(posts: &Vec<Post>, settings: &Settings) {
     <language>en-us</language>"#,
     );
 
-    for p in posts {
-        contents = format!(
-            "{}<item><title>{}</title><link>{}</link><pubDate>{}</pubDate><guid>{}</guid><description>{}</description></item>\n",
+    let mut sorted = posts.to_vec(); // clone to mutable list of posts for ordering
+    sorted.sort_by(|a, b| b.pub_date.clone().cmp(&a.pub_date));
+
+    sorted.into_iter().filter(|p| p.is_blog).for_each(|p| {
+    contents = format!(
+            "{}<item><title>{}</title><link>{}</link><pubDate>{}</pubDate><guid>{}</guid><description><![CDATA[ {} ]]></description></item>\n",
             contents, p.title, p.url, p.pub_date, p.url, p.description
         );
-    }
+    });
     contents = format!("{}</channel></rss>\n", contents);
     // save the index.xml (RSS) at the web root
     let file_path = format!("{}/index.xml", &settings.workdir);
@@ -49,7 +52,6 @@ pub fn gen_rssfeed(posts: &Vec<Post>, settings: &Settings) {
 }
 
 pub fn gen_blog_index(posts: &Vec<Post>, settings: &Settings) {
-    //
     let file_path = format!("{}/index.html", &settings.workdir);
     let index_html = fs::read_to_string(&file_path)
         .expect("could not load index html!")
