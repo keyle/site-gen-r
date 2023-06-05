@@ -45,3 +45,16 @@ Blog posts will automatically have a `blog` class on the `<body>` to style the b
 Additionally we parse `sub` for the RSS `pubDate` and to be sorted on the index page.
 
 It will be included in the RSS and linked from the homepage. Note that this last part is pretty much custom to suit my own needs, but could be abstracted out further.
+
+### Running
+
+#### Debug
+
+`Cargo run`
+
+#### Release 
+
+```
+Cargo build --release
+./target/release/site-gen-rust
+```
