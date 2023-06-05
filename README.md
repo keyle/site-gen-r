@@ -28,9 +28,9 @@ The site generator will then
 - converts them to HTML
 - insert them in `template`
 - replacing the `contenttag` with the HTML
-- update `descriptiontag` with the contents of <x-desc> (custom valid HTML5 tag in the markdown)
-- same with the `keywordstag` with the contents of <x-tags> (hidden)
-- same with the `titletag` with the contents of <x-title>
+- update `descriptiontag` with the contents of `<x-desc>` (custom valid HTML5 tag in the markdown)
+- same with the `keywordstag` with the contents of `<x-tags>` (hidden)
+- same with the `titletag` with the contents of `<x-title>`
 
 This custom HTML5 tag gymnastic is to avoid having metadata json files around, or breaking the valid markdown format (like Hugo does).
   
