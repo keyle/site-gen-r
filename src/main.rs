@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, path::Path, process};
 use walkdir::WalkDir;
 
 mod settings;
@@ -10,7 +10,21 @@ use post::Post;
 mod boring;
 
 fn main() {
-    let settingsjson = fs::read_to_string(".settings.json").expect("unable to read file");
+    let home = std::env::var("HOME").expect("could not read HOME folder");
+    let home_config = &format!("{}/.config/site-gen/settings.json", &home);
+
+    let found_path = if Path::new(".settings.json").exists() {
+        ".settings.json"
+    } else if Path::new(home_config).exists() {
+        home_config
+    } else {
+        println!(
+            "Could not find a .settings.json here or ~/.config/site-gen/settings.json. Aborting."
+        );
+        process::exit(1);
+    };
+
+    let settingsjson = fs::read_to_string(found_path).expect("unable to read file");
     let settings: Settings = serde_json::from_str(&settingsjson).unwrap();
 
     let template = fs::read_to_string(settings.template.clone()).expect("could not load template!");
