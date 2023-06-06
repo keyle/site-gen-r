@@ -24,7 +24,7 @@ pub fn gen_sitemap(posts: &Vec<Post>, settings: &Settings) {
     fs::write(file_path, &contents).expect("could not write sitemap.xml!");
 }
 
-pub fn gen_rssfeed(posts: &Vec<Post>, settings: &Settings) {
+pub fn gen_rssfeed(posts: &[Post], settings: &Settings) {
     // @hack we purposefully named our index z-index to be last in the alphabet to have processed ever Post prior!
     // Ideally this should take another pass, rather than rely on the order.
     let mut contents = String::from(
@@ -53,11 +53,9 @@ pub fn gen_rssfeed(posts: &Vec<Post>, settings: &Settings) {
     fs::write(file_path, &contents).expect("could not write rss xml!");
 }
 
-pub fn gen_blog_index(posts: &Vec<Post>, settings: &Settings) {
+pub fn gen_blog_index(posts: &[Post], settings: &Settings) {
     let file_path = format!("{}/index.html", &settings.workdir);
-    let index_html = fs::read_to_string(&file_path)
-        .expect("could not load index html!")
-        ;
+    let index_html = fs::read_to_string(&file_path).expect("could not load index html!");
 
     let mut contents = String::from("<table>");
 
@@ -66,10 +64,11 @@ pub fn gen_blog_index(posts: &Vec<Post>, settings: &Settings) {
 
     sorted.into_iter().filter(|p| p.is_blog).for_each(|p| {
         contents = format!(
-            "{}<tr><td>{}</td><td>{}</td><td>&nbsp;</td>",
+            "{}<tr><td>{}</td><td><a href='{}'>{}</a></td><td>&nbsp;</td>",
             contents,
             blog_date_from(&p.pub_date),
-            format!("<a href='{}'>{}</a>", p.vanity, p.title)
+            p.vanity,
+            p.title
         );
     });
 
@@ -79,7 +78,7 @@ pub fn gen_blog_index(posts: &Vec<Post>, settings: &Settings) {
     fs::write(&file_path, new_index).expect("could not write rss xml!");
 }
 
-fn blog_date_from(ymd: &String) -> String {
+fn blog_date_from(ymd: &str) -> String {
     let t = NaiveDate::parse_from_str(ymd, "%Y-%m-%d")
         .expect("ERROR Could not parse date for blog index");
     t.format("%b %d, %Y").to_string() // May 14, 2023

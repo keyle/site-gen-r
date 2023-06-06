@@ -36,8 +36,8 @@ impl Post {
         self.html = html_out;
     }
 
-    pub fn mangle_template(&mut self, template: &String, settings: &Settings) {
-        let mut contents = template.clone();
+    pub fn mangle_template(&mut self, template: &str, settings: &Settings) {
+        let mut contents = template.to_string();
         let is_blog_post = self.html.contains("<x-blog-title>");
         let html = Html::parse_document(&self.html);
         let title_tag_name;

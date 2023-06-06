@@ -13,9 +13,7 @@ fn main() {
     let settingsjson = fs::read_to_string(".settings.json").expect("unable to read file");
     let settings: Settings = serde_json::from_str(&settingsjson).unwrap();
 
-    let template = fs::read_to_string(settings.template.clone())
-        .expect("could not load template!")
-        ;
+    let template = fs::read_to_string(settings.template.clone()).expect("could not load template!");
 
     let mut posts: Vec<Post> = Vec::new();
 
