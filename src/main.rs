@@ -2,10 +2,10 @@ use std::fs;
 use walkdir::WalkDir;
 
 mod settings;
-use settings::*;
+use settings::Settings;
 
 mod post;
-use post::*;
+use post::Post;
 
 mod boring;
 

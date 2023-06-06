@@ -4,7 +4,7 @@ use chrono::NaiveDate;
 
 use crate::{post::Post, settings::Settings};
 
-pub fn gen_sitemap(posts: &Vec<Post>, settings: &Settings) {
+pub fn gen_sitemap(posts: &[Post], settings: &Settings) {
     let mut contents = String::from(
         r#"<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
