@@ -18,7 +18,7 @@ pub fn gen_sitemap(posts: &[Post], settings: &Settings) {
             contents, p.url, p.pub_date
         );
     }
-    contents = format!("{}</urlset>\n", contents);
+    contents = format!("{contents}</urlset>\n");
     // save the sitemap.xml at the web root
     let file_path = format!("{}/sitemap.xml", &settings.workdir);
     fs::write(file_path, &contents).expect("could not write sitemap.xml!");
@@ -47,7 +47,7 @@ pub fn gen_rssfeed(posts: &[Post], settings: &Settings) {
             contents, p.title, p.url, p.pub_date, p.url, p.description
         );
     });
-    contents = format!("{}</channel></rss>\n", contents);
+    contents = format!("{contents}</channel></rss>\n");
     // save the index.xml (RSS) at the web root
     let file_path = format!("{}/index.xml", &settings.workdir);
     fs::write(file_path, &contents).expect("could not write rss xml!");
@@ -72,7 +72,7 @@ pub fn gen_blog_index(posts: &[Post], settings: &Settings) {
         );
     });
 
-    contents = format!("{}</table>", contents);
+    contents = format!("{contents}</table>");
 
     let new_index = index_html.replace("<x-blog-index/>", &contents);
     fs::write(&file_path, new_index).expect("could not write rss xml!");

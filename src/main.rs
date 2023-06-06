@@ -48,11 +48,11 @@ fn main() {
             });
         });
 
-    posts.iter_mut().for_each(|x| {
+    for x in &mut posts {
         x.markdown_to_html();
         x.mangle_template(&template, &settings);
         x.save_html();
-    });
+    }
 
     // @later  check that the screenshot show up when served online with url ending / and not
     boring::gen_sitemap(&posts, &settings);
