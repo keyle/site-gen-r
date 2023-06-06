@@ -32,6 +32,7 @@ impl Post {
         let parser = Parser::new_ext(&contents, options);
         let mut html_out = String::new();
         html::push_html(&mut html_out, parser);
+        html_out = html_out.replace(" align=\"left\"", "");
         // html
         self.html = html_out;
     }
