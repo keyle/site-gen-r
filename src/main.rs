@@ -27,8 +27,6 @@ fn main() {
     let settingsjson = fs::read_to_string(found_path).expect("unable to read file");
     let settings: Settings = serde_json::from_str(&settingsjson).unwrap();
 
-    let template = fs::read_to_string(settings.template.clone()).expect("could not load template!");
-
     let mut posts: Vec<Post> = Vec::new();
 
     WalkDir::new(&settings.workdir)
@@ -64,7 +62,7 @@ fn main() {
 
     for x in &mut posts {
         x.markdown_to_html();
-        x.mangle_template(&template, &settings);
+        x.mangle_template(&settings);
         x.save_html();
     }
 

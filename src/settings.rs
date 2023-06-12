@@ -5,6 +5,7 @@ pub struct Settings {
     pub workdir: String,
     pub webroot: String,
     pub template: String,
+    pub templateindex: String,
     pub contenttag: String,
     pub titletag: String,
     pub descriptiontag: String,

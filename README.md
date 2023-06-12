@@ -15,6 +15,7 @@ it takes a .settings.json of this format...
     "workdir": "/Users/name/Documents/Code/website/public",
     "webroot": "https://website.org",
     "template": "./template/template.html",
+    "templateindex": "./template/template-index.html",
     "contenttag": "{{%%content%%}}",
     "titletag": "{{%%title%%}}",
     "descriptiontag" : "{{%%description%%}}",

@@ -37,12 +37,20 @@ impl Post {
         self.html = html_out;
     }
 
-    pub fn mangle_template(&mut self, template: &str, settings: &Settings) {
-        let mut contents = template.to_string();
+    pub fn mangle_template(&mut self, settings: &Settings) {
         let is_blog_post = self.html.contains("<x-blog-title>");
+        let is_index = self.html.contains("<x-index/>");
         let html = Html::parse_document(&self.html);
         let title_tag_name;
 
+        let template: String = if is_index {
+            fs::read_to_string(settings.templateindex.clone())
+                .expect("could not load index template!")
+        } else {
+            fs::read_to_string(settings.template.clone()).expect("could not load template!")
+        };
+
+        let mut contents = template.clone();
         if is_blog_post {
             title_tag_name = "x-blog-title";
             contents = contents.replace("<body>", "<body class='blog'>"); // apply different css
