@@ -60,3 +60,8 @@ It will be included in the RSS and linked from the homepage. Note that this last
 Cargo build --release
 ./target/release/site-gen-rust
 ```
+
+#### See also
+
+* `site-gen-ocaml` a remake of this in [OCaml](https://github.com/keyle/site-gen-ocaml)
+* `site-gen-c` a remake of this in [modern C](https://github.com/keyle/site-gen-c)
