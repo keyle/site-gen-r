@@ -61,7 +61,7 @@ Cargo build --release
 ./target/release/site-gen-rust
 ```
 
-#### See also
+### See also
 
 * `site-gen-ocaml` a remake of this in [OCaml](https://github.com/keyle/site-gen-ocaml)
 * `site-gen-c` a remake of this in [modern C](https://github.com/keyle/site-gen-c)
