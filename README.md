@@ -65,3 +65,30 @@ Cargo build --release
 
 * `site-gen-ocaml` a remake of this in [OCaml](https://github.com/keyle/site-gen-ocaml)
 * `site-gen-c` a remake of this in [modern C](https://github.com/keyle/site-gen-c)
+
+### Benchmarks
+
+For fun, I ran some stats. This compares the different builds. Note that both were written pretty naively, I was new to Rust and I am new to OCaml. So, take those with a grain of salt. However the implementation logic is very linear and very similar...
+
+The C version could be much faster, I'm doing a ton of allocations that aren't strictly needed for the sake of getting it done. To be optimised.
+
+#### Method
+
+`hyperfine --warmup 5 ./sitegen...    # ran for approx 400-600 iterations.` 
+
+#### C version
+
+`Time (mean ± σ):       3.0 ms ±   0.2 ms    [User: 1.1 ms, System: 1.8 ms]`
+
+#### Rust version
+
+`Time (mean ± σ):       4.3 ms ±   0.2 ms    [User: 2.1 ms, System: 2.0 ms]`
+
+#### OCaml version
+
+`Time (mean ± σ):       6.4 ms ±   0.2 ms    [User: 3.5 ms, System: 2.8 ms]`
+
+#### OCaml bytecode version
+
+`Time (mean ± σ):      21.2 ms ±   0.2 ms    [User: 17.6 ms, System: 3.3 ms]`
+
