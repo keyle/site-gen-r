@@ -68,13 +68,17 @@ Cargo build --release
 
 ### Benchmarks
 
-For fun, I ran some stats. This compares the different builds. Note that both were written pretty naively, I was new to Rust and I am new to OCaml. So, take those with a grain of salt. However the implementation logic is very linear and very similar...
+For fun, I ran some stats. This compares the different builds. Note that all were written pretty naively. So, take those with a grain of salt. However the implementation logic is very linear and very similar...
 
-The C version could be much faster, I'm doing a ton of allocations that aren't strictly needed for the sake of getting it done. To be optimised.
+I am surprised by the speed of the Go implementation considering how quickly I wrote all the code. It certainly was easier than the Rust's or OCaml implementation. Dart felt like the easiest to write in.
+
+The C version could use further optimisations. The most poetic and readable is the OCaml version. The least readable is the Rust version.
+
+Each versions have very minor differences in the output HTML, based on the native markdown library, e.g. some handle ellipsis, some don't, etc.
 
 #### Method
 
-`hyperfine --warmup 5 ./sitegen...    # ran for approx 400-600 iterations.` 
+`hyperfine --warmup 5 ./site-gen-go    # ran for approx 410 iterations.`
 
 #### C version
 
@@ -84,6 +88,10 @@ The C version could be much faster, I'm doing a ton of allocations that aren't s
 
 `Time (mean ± σ):       4.3 ms ±   0.2 ms    [User: 2.1 ms, System: 2.0 ms]`
 
+### Go version
+
+`Time (mean ± σ):       4.8 ms ±   0.1 ms    [User: 2.0 ms, System: 2.8 ms]`
+
 #### OCaml version
 
 `Time (mean ± σ):       6.4 ms ±   0.2 ms    [User: 3.5 ms, System: 2.8 ms]`
@@ -92,3 +100,18 @@ The C version could be much faster, I'm doing a ton of allocations that aren't s
 
 `Time (mean ± σ):      21.2 ms ±   0.2 ms    [User: 17.6 ms, System: 3.3 ms]`
 
+#### Dart version (master: async)
+
+`Time (mean ± σ):      30.8 ms ±   0.6 ms    [User: 21.8 ms, System: 8.5 ms]`
+
+#### Dart version (f/sync: sync only)
+
+`Time (mean ± σ):      30.0 ms ±   0.5 ms    [User: 21.8 ms, System: 8.5 ms]`
+
+### See also
+
+* [site-gen-c](https://github.com/keyle/site-gen-c)
+* [site-gen-go](https://github.com/keyle/site-gen-go)
+* [site-gen-rust](https://github.com/keyle/site-gen-rust)
+* [site-gen-dart](https://github.com/keyle/site-gen-dart)
+* [site-gen-ocaml](https://github.com/keyle/site-gen-ocaml)
